@@ -1,11 +1,11 @@
 
-@import "templatecolours.css";
+/*@import "templatecolours.css";*/
 body{
     max-width:960px;
     margin-left: auto;
     margin-right: auto;
 }
-header>img{
+header>h1{
     float: left;
 
 }
