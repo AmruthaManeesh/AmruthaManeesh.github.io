@@ -1,0 +1,123 @@
+
+
+
+
+@import "fonts.css";
+
+
+#page{
+    max-width: 960px;
+    margin-left: auto;
+    margin-right: auto;
+
+}
+
+
+header {
+    background-color: #00b6a8;
+    max-width: 1000px;
+    padding: 10px;
+}
+header h1{
+    font-weight: 700;
+    font-family: 'Righteous', cursive;
+    margin-bottom: 0;
+}
+header h2{
+    margin-top: 0;
+}
+footer {
+    background-color: #00b6a8;
+
+}
+
+#thirdcontainer{
+    position: relative;
+
+    max-width: 960px;
+   margin-top: 20px;
+}
+
+.container {
+    position: relative;
+    text-align: left;
+    color: white;
+    max-width: 960px;
+    padding: 10px;
+}
+
+.firstcontainer{
+   position: relative;
+   max-width: 960px;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+
+.text-block {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    background-color: #00b6a8;
+    color: white;
+    transform:
+    translate(-50%, -50%);
+
+}
+.secondcontainer {
+    position: relative;
+
+    max-width: 960px;
+    padding: 10px;
+}
+#img{
+    text-align: center;
+
+}
+{
+box-sizing: border-box;
+}
+.pull-right{
+    float: right;
+}
+form.example
+input[type=text]{
+    padding: 10px;
+    font-size: 17px;
+    border: 1px solid grey;
+    float: left;
+    width: 80%;
+    height: 30px;
+    background: #f1f1f1;
+
+}
+form.example button{
+    float: left;
+    width: 20%;
+    height: 30px;
+    padding: 10px;
+    background: #2196F3;
+    color: white;
+    font-size: 17px;
+    border: 1px solid grey;
+    border-left: none;
+    cursor: pointer;
+
+}
+form.example button:hover {
+   background: #0b7dda;
+
+}
+
+form.example button::after {
+  content:"";
+    clear: both;
+    display: table;
+}
+.navbar {
+    max-width: 960px;
+    padding: 10px;
+    margin: 0;
+
+}
+
