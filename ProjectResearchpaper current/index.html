@@ -7,23 +7,24 @@
     <title>ResearchPaper</title>
     <link rel="stylesheet" href="assets/CSS/style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-</head>
 
+    <link href="https://www.facebook.com/Research Paper Share group" rel="nofollow">
+
+</head>
 <body>
 
-<div id="page"></div>
+<div id="page">
 
+<header class="col-md-12"  >
+<div class="container"  >
+    <h1>E4U</h1>
 
-<div class="container" >
-    <header class="col-md-12" style="width:100%" >
-        <h1>E4U</h1>
-    </header>
 </div>
+</header>
 
 
-
-<nav  class="col-md-12 navbar navbar-expand-sm bg-info navbar-dark" style="width:100%">
-    <li class="container-fluid">
+<nav  class="col-md-12 navbar navbar-expand-sm bg-info navbar-dark" >
+    <div class="container-fluid">
         <ul class="navbar-nav">
             <li class="nav-item active"><a class="nav-link" href = "index.html">Home</a></li>
             <li class="nav-item"><a class="nav-link" href = "projects.html">Projects</a></li>
@@ -33,18 +34,29 @@
                       action="action_page.php">
                     <input type="text"
                            placeholder ="Search.." name="search" >
+                    <div style="display:inline-block;">
                     <button type="submit"><i
                             class="fa fa_search"></i>
                     </button>
+                    </div>
                 </form>
         </ul>
-    </li>
+    </div>
 
 </nav>
 
 <main class="col-md-12">
     <div class="firstcontainer" >
-        <img src="assets/images/banner.jpg" alt="robert-gordon-university" style="width:100%" height="250" >
+        <img src="assets/images/banner.jpg" alt="robert-gordon-university"  style="width:70%" height="250" >
+        <div style="float:right" padding="10px">
+
+            <div>
+                <ul class="navbar-nav">
+<button>
+                <li class="nav-item active"><a id="mybutton" href="login.php">Log In</a></li>
+</button>
+                </ul>
+        </div>
 
 
             <div class="text-block">
@@ -53,16 +65,17 @@
             </div>
 
     </div>
-<div id="secondcontainer" class="row" style="width:100%">
-    <div class="col-md-4" id="first" >
+<div id="secondcontainer" class="row">
+    <div class="col-md-4" >
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <div class="panel-body">
-                    <nav  class="col-md-4 navbar navbar-expand-sm bg-info navbar-dark" >
+                    <nav  class="col-md-4 navbar navbar-expand-sm bg-info navbar-dark" id="first" >
                         <div class="container-fluid">
                             <ul class="navbar-nav">
-                                <li class="nav-item active"><a class="nav-link" href = "epaper.html">What is EPaper?</a></li>
+                                <li class="nav-item active"><a class="nav-link" href = "epaper.html"><h4 > What is EPaper? </h4></a></li>
                             </ul>
+                        </div>
                         </nav>
 
                     <p>Lorem ipsum dolor sit amet, consecteturadipiscing elit, sed do eiusmod temporincididunt ut labore et dolore magna
@@ -80,14 +93,14 @@
         </div>
     </div>
 
-    <div class="col-md-4" id="">
+    <div class="col-md-4" >
         <div class="panel panel-primary">
            <div class="panel-heading">
               <div class="panel-body">
-              <nav  class="col-md-4 navbar navbar-expand-sm bg-info navbar-dark" >
+              <nav  class="col-md-4 navbar navbar-expand-sm bg-info navbar-dark" id="third" >
                 <div class="container-fluid">
                     <ul class="navbar-nav">
-                        <li class="nav-item active"><a class="nav-link" href = "work.html">How does it work? </a></li>
+                        <li class="nav-item active"><a class="nav-link" href = "work.html"><h4>How does it work? </h4> </a></li>
                     </ul>
                 </div>
             </nav>
@@ -98,6 +111,7 @@
     </div>
 </div>
     </div>
+    </div>
     </main>
 
 <script src="https:/>/ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -105,9 +119,11 @@
 <script src="https:/>/maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
 <footer>
-    <div id="thirdcontainer" style="width:100%">
-    <p> footer </p>
-    </div>
-    </footer>
- </body>
+    <div id="thirdcontainer" >
+    <h4> Connect with us
+        <a target="_blank" title="find us on Facebook" href="http://www.facebook.com/Research Paper Share group"><img alt="follow me on facebook" src="//login.create.net/images/icons/user/facebook_30x30.png" border=0></a></h4>
+
+</div>
+</footer>
+</body>
 </html>
