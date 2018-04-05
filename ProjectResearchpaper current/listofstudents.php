@@ -1,16 +1,18 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: 1715757
- * Date: 23/03/2018
- * Time: 18:08
+ * User: amrut
+ * Date: 31/03/2018
+ * Time: 23:07
  */
+
 include("connectdb.php");
-$sql="SELECT*FROM marvelmovies WHERE productionStudio='Marvel Studios'";
+
+$sql="SELECT*FROM studentpaper";
 $result=$db->query($sql);
 if($result->num_rows>0) {
     while ($row = $result->fetch_assoc()) {
-        echo "year:".$row["yearReleased"] . ";title:" . $row["title"] . "<br>";
+        echo "name:".$row["studentname"] ."<br>";
     }
 }else{
     echo"0 results";

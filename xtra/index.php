@@ -6,15 +6,13 @@
     ?>
     <meta charset="utf-8">
     <title>PHP Login Form without Session</title>
-    <link rel="stylesheet" href="style.css" type="text/css" />
+    <link rel="stylesheet" href="../ProjectResearchpaper%20current/style.css" type="text/css" />
 </head>
 <body>
-<form action="login.php" method="post">
-<h1>PHP Login Form with Session</h1>
-<div class="loginBox">
-    <h3>Login Form</h3>
+<form action="../ProjectResearchpaper%20current/login.php" method="post">
+    <h3>Login to your Account</h3>
     <br><br>
-    <form method="post" action="login.php">
+    <form method="post" action="../ProjectResearchpaper%20current/login.php">
         <label>Username:</label><br>
         <input type="text" name="username" placeholder="username"
         /><br><br>
@@ -26,6 +24,6 @@
     <div class="error">
         <?php //echo $error;?><?php //echo $username; echo
         // $password;?></div>
-</div>
+
 </body>
 </html>
