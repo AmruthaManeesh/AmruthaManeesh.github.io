@@ -1,15 +1,15 @@
 @import "fonts.css";
 
 body{
-    background-color: #2f4050;
+    background-color:#00b6a8;
 }
 
 .col-sm-10{
-    background-color: #ffffff;
+    background-color:  white;
 }
 
 #side_menu a{
-    color: #9fb1c2;
+    color: #0b7dda;
 }
 
 #side_menu .active{
