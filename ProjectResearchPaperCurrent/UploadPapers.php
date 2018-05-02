@@ -2,7 +2,7 @@
 
 <?php include_once("session.php"); ?>
 
-<!-- Add New Project Submit button processing. -->
+<!-- -->
 <?php
 
 $msg ='';
@@ -46,19 +46,28 @@ if(isset($_GET['Id'])) {
     $IdFromURLforDeletingPapers = $_GET['Id'];
     global $db;
 
-    $Query = "DELETE FROM papers WHERE id = '$IdFromURLforDeletingPapers'";
+    $CurrentUserName = $_SESSION['username'];
+
+    $Query = "SELECT id FROM papers WHERE uploadedby='$CurrentUserName'";
     $result = mysqli_query($db, $Query);
+    $UploadsOfCurrentUser = mysqli_fetch_assoc($result);
 
-    if($result){
-        $msg = 'Deleted Successfully';
+    //Id of paper to be deleted is in the array of uploads by the current user.
+    if (in_array($IdFromURLforDeletingPapers, $UploadsOfCurrentUser))
+    {
+        $DeleteQuery = "DELETE FROM papers WHERE id ='$IdFromURLforDeletingPapers'";
+        $result = mysqli_query($db, $DeleteQuery);
+        $msg="Delete Successful.";
     }
-    else{
-        $msg = 'Delete not successful. Please try again.';
-
-
+    else
+    {
+        $msg="You are not permitted to delete this upload.";
     }
+
 
 }
+//When the current user has no uploads, an error is thrown as $ReviewsOfCurrentUser is empty.//
+//We could easily catch this error and display no uploads by current user but this is not implemented.
 
 
 ?>
@@ -123,7 +132,8 @@ if(isset($_GET['Id'])) {
         </div>
 
     </nav>
-
+<br>
+    <br>
     <main class="col-md-12">
         <div>
 
@@ -132,6 +142,7 @@ if(isset($_GET['Id'])) {
 
 
         <h2>Upload Papers</h2>
+        <br>
         <div>
             <form action="UploadPapers.php" method="post" enctype="multipart/form-data"><!-- for  uploading a file -->
                 <fieldset>
@@ -158,8 +169,9 @@ if(isset($_GET['Id'])) {
       <div>
           <?php echo htmlentities($msg); ?>
       </div>
-
+<br>
         <h2> Papers</h2>
+        <br>
         <div class="table-responsive">
             <table class="table table-striped table-hover">
                 <!-- Header for the table. -->
@@ -204,10 +216,7 @@ if(isset($_GET['Id'])) {
                             <?php               ?>
 
 
-                            <?php
-                            ?>
-                            <a class="btn btn-small btn-success"  href="UploadPapers.php?Id=<?php echo $Id; ?>">Edit</a>
-                            <?php               ?>
+
 
                             <?php
                             ?>

@@ -4,14 +4,15 @@
 
 <!-- Add New Project Submit button processing. -->
 <?php
-
 $msg ='';
 
+//TO ADD A NEW POST WHEN SUBMIT BUTTON IS CLICKED
 if (isset($_REQUEST['Submit'])) {
+    $SearchQueryParameter= $_GET['Id'];
     // removes backslashes
-    $PaperTitle = stripslashes($_REQUEST['PaperTitle']);
+    $ProjectTitle = stripslashes($_REQUEST['ProjectTitle']);
     //NB, that if no conn is open, mysqli_real_escape_string() will return an empty string!.Triggering Validation 1
-    $PaperTitle = mysqli_real_escape_string($db, $PaperTitle);
+    $ProjectTitle = mysqli_real_escape_string($db, $ProjectTitle);
 
 
     // removes backslashes
@@ -19,17 +20,15 @@ if (isset($_REQUEST['Submit'])) {
     //NB, that if no conn is open, mysqli_real_escape_string() will return an empty string!.Triggering Validation 1
     $Course = mysqli_real_escape_string($db, $Course);
 
-    $UploadedReview = $_FILES['UploadedReview']['name'];
-    $PaperFileLocation = "assets/uploads/".basename($_FILES['UploadedReview']['name']);
+    $AdminName = $_SESSION['username'];
 
-    $CurrentUserName = $_SESSION['username'];
-
+    //Insert into database
     global $db;
 
-    $stmt = mysqli_prepare($db, "INSERT INTO review (papertitle, reviewfilename, reviewedby, course) VALUES (?, ?,?, ?)");
-    mysqli_stmt_bind_param($stmt, 'ssss', $PaperTitle, $UploadedReview, $CurrentUserName, $Course);
-    $result = mysqli_stmt_execute($stmt);
-    move_uploaded_file($_FILES["UploadedReview"]["tmp_name"], $PaperFileLocation);
+
+    $QueryUpdate = "UPDATE projects SET title='$ProjectTitle', course='Course' 
+                  WHERE id = '$SearchQueryParameter'";
+    $result = mysqli_query($db, $QueryUpdate);
 
     if($result){
         $msg= 'Successful';
@@ -39,38 +38,7 @@ if (isset($_REQUEST['Submit'])) {
     }
 }
 
-
-
-//TO DELETE A POST WHEN DELETE BUTTON IS CLICKED
-if(isset($_GET['Id'])) {
-    $IdFromURLforDeletingReviews = $_GET['Id'];
-    global $db;
-
-    $Query = "DELETE FROM review WHERE id = '$IdFromURLforDeletingReviews'";
-    $result = mysqli_query($db, $Query);
-
-    if($result){
-        $msg = 'Deleted Successfully';
-    }
-    else{
-        $msg = 'Delete not successful. Please try again.';
-
-
-    }
-
-}
-
-
 ?>
-
-
-
-
-
-
-
-
-
 
 
 
@@ -113,11 +81,11 @@ if(isset($_GET['Id'])) {
         <div class="container-fluid">
             <ul class="navbar-nav">
                 <li class="nav-item "><a class="nav-link" href = "index.html">Home</a></li>
-                <li class="nav-item "><a class="nav-link" href = "home_teamleader.php">Dash Board</a></li>
-                <li class="nav-item "><a class="nav-link" href = "UploadPapersT.php">Upload Papers</a></li>
-                <li class="nav-item active"><a class="nav-link" href = "UploadReviewsT.php">Upload Reviews</a></li>
-                <li class="nav-item"><a class="nav-link" href = "ViewProjectT.php">Project</a></li>
-                <li class="nav-item"><a class="nav-link" href = "AllocatePaper.php">Allocate Paper</a></li>
+                <li class="nav-item "><a class="nav-link" href = "home_lecturer.php">Dash Board</a></li>
+                <li class="nav-item active"><a class="nav-link" href = "projects.php">Projects</a></li>
+                <li class="nav-item"><a class="nav-link" href = "papers.php">Papers</a></li>
+                <li class="nav-item"><a class="nav-link" href = "ManageStudents.php">Manage Students</a></li>
+                <li class="nav-item"><a class="nav-link" href = "reviews.php">Reviews</a></li>
                 <li class="nav-item"><a class="nav-link" href = "index.html">log Out</a></li>
 
             </ul>
@@ -132,60 +100,69 @@ if(isset($_GET['Id'])) {
         </div>
 
 
-        <h2>Upload Reviews</h2>
+        <h2>New Projects</h2>
+
+
+
         <div>
-            <form action="UploadReviewsT.php" method="post" enctype="multipart/form-data"><!-- for  uploading a file -->
+                <?php
+                $SearchQueryParameter= $_GET['Id'];
+                global $db;
+
+                $Query = "SELECT * FROM projects WHERE id='$SearchQueryParameter'";
+                $result= mysqli_query($db, $Query);
+
+                while ($rows=mysqli_fetch_assoc($result)) {
+                    $TitleToBeUpdated = $rows["title"];
+                    $CourseToBeUpdated = $rows["course"];
+
+                }
+                ?>
+
+
+            <form action="Editproject.php?Id=<?php echo ($SearchQueryParameter) ?>" method="post" enctype="multipart/form-data">
                 <fieldset>
                     <div class="form-group">
-                        <label for="papertitile"><span class="FieldInfo">Paper Title:</span></label>
-                        <input class="form-control" type="text" name="PaperTitle" id="papertitle" placeholder="Paper Title">
+                        <label for="projecttitle"><span class="FieldInfo">Project Title:</span></label>
+                        <input value="<?php echo $TitleToBeUpdated ?>"   class="form-control" type="text" name="ProjectTitle" id="projecttitle" placeholder="Project Title">
                     </div>
 
                     <div class="form-group">
                         <label for="course"><span class="FieldInfo">Course:</span></label>
-                        <input class="form-control" type="text" name="Course" id="course" placeholder="course">
+                        <input  value="<?php echo $CourseToBeUpdated ?>"  class="form-control" type="text" name="Course" id="course" placeholder="course">
                     </div>
-
-                    <div class="form-group">
-                        <label for="uploadreview"><span class="FieldInfo">Upload Review:</span></label>
-                        <input class="form-control" type="file" name="UploadedReview" id="uploadreview" placeholder="Upload Review">
-                    </div>
-
-                    <input class="btn btn-success btn-lg" type="submit" name="Submit" value="Add Review">
+                    <input class="btn btn-success btn-lg" type="submit" name="Submit" value="Update Project">
                 </fieldset>
                 <br>
             </form>
         </div>
+
         <div>
             <?php echo htmlentities($msg); ?>
         </div>
 
-        <h2> Reviews</h2>
+        <h2>Projects</h2>
         <div class="table-responsive">
             <table class="table table-striped table-hover">
                 <!-- Header for the table. -->
                 <tr>
                     <th>SN.</th>
-                    <th>Paper title</th>
+                    <th>Project title</th>
                     <th>Course</th>
-                    <th>Uploaded review </th>
-                    <th>Reviewed by</th>
-                    <th>Actions</th>
-
+                    <th>Action</th>
                 </tr>
 
                 <!--Getting all the records from the database to form rows on the table. -->
                 <?php
                 global $db;
-                $Viewreview = "SELECT*FROM review";
-                $result = mysqli_query($db,  $Viewreview);
+                $ViewProjects = "SELECT * FROM projects";
+                $result = mysqli_query($db,  $ViewProjects);
 
                 $SrNo = 0;
                 while ($rows=mysqli_fetch_assoc($result)){
                     $Id = $rows["id"];
-                    $PaperTitle = $rows["papertitle"];
-                    $Uploadedby = $rows["reviewedby"];
-                    $UploadedReview = $rows["reviewfilename"];
+                    $ProjectTitle = $rows["title"];
+                    $AdminName = $rows["admin"];
                     $Course = $rows["course"];
 
                     //This will help maintain correct numbering of the SN. field
@@ -195,23 +172,15 @@ if(isset($_GET['Id'])) {
                     <!-- New Row -->
                     <tr>
                         <td><?php echo $SrNo; ?> </td>
-                        <td><?php echo $PaperTitle; ?> </td>
-                        <td><?php echo $Course ;?> </td>
-                        <td><?php echo $UploadedReview ;?> </td>
-                        <td><?php echo $Uploadedby; ?> </td>
+                        <td><?php echo $ProjectTitle; ?> </td>
+                        <td><?php echo $Course ?> </td>
                         <td>
-                            <?php
-                            ?>
-                            <a class="btn btn-primary"  href="assets/uploads/<?php echo $UploadedReview; ?>" target="_blank">View</a>
-                            <?php               ?>
-
-
-
 
                             <?php
                             ?>
-                            <a class="btn btn-danger"  href="UploadReviewsT.php?Id=<?php echo $Id; ?>">Delete</a>
+                            <a class="btn btn-success"  href="projects.php?Id=<?php echo $Id; ?>">Edit</a>
                             <?php               ?>
+
 
 
                         </td>
@@ -236,3 +205,4 @@ if(isset($_GET['Id'])) {
     </footer>
 </div>
 </body>
+</html>

@@ -87,7 +87,7 @@ if(isset($_GET['Id'])) {
         </div>
 
     </nav>
-
+<br>
     <main class="col-md-12">
 
         <div>
@@ -95,6 +95,7 @@ if(isset($_GET['Id'])) {
         </div>
 
 <h2> Reviews</h2>
+        <br>
 <div class="table-responsive">
     <table class="table table-striped table-hover">
         <!-- Header for the table. -->

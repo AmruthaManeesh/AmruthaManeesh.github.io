@@ -56,8 +56,21 @@
         <main class="col-md-12">
 
 
-            <h2>Welcome </h2>
+            <div>
+                <h2>Welcome  <?php echo htmlentities( $_SESSION['username']); ?></h2>
+                <?php
+                $msg ='';
+                global $db;
 
+                $CurrentUserName = $_SESSION['username'];
+                $getName = "SELECT * FROM login WHERE username='$CurrentUserName'";
+                $Result = mysqli_query($db, $getName);
+                $DataRows = mysqli_fetch_assoc($Result);
+                $Name = $DataRows['name'];
+
+
+                ?>
+            </div>
 
         </main>
 

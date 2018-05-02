@@ -39,31 +39,42 @@ if (isset($_REQUEST['Submit'])) {
     }
 }
 
+?>
 
 
+<?php
 //TO DELETE A POST WHEN DELETE BUTTON IS CLICKED
 if(isset($_GET['Id'])) {
     $IdFromURLforDeletingReviews = $_GET['Id'];
     global $db;
 
-    $Query = "DELETE FROM review WHERE id = '$IdFromURLforDeletingReviews'";
-    $result = mysqli_query($db, $Query);
+    $CurrentUserName = $_SESSION['username'];
 
-    if($result){
-        $msg = 'Deleted Successfully';
+    $QueryGetReviews = "SELECT id FROM review WHERE reviewedby='$CurrentUserName'";
+    $resultGetReviews = mysqli_query($db, $QueryGetReviews) or die (mysqli_error($db)) ;
+    $ReviewsOfCurrentUser = mysqli_fetch_assoc($resultGetReviews);
+
+    //Id of paper to be deleted is in the array of uploads by the current user.
+    if (in_array($IdFromURLforDeletingReviews, $ReviewsOfCurrentUser))
+    {
+
+        $DeleteQuery = "DELETE FROM `review` WHERE `review`.`id` = $IdFromURLforDeletingReviews ";
+        $resultDeleteQuery = mysqli_query($db, $DeleteQuery);
+        $msg="Delete Successful.";
     }
-    else{
-        $msg = 'Delete not successful. Please try again.';
-
-
+    else
+    {
+        $msg="You are not permitted to delete this upload.".mysqli_error($db) ;
     }
+
+
+    //When the current user has no uploads, an error is thrown as $ReviewsOfCurrentUser is empty.//
+    //We could easily catch this error and display no uploads by current user but this is not implemented.
+
+
 
 }
-
-
 ?>
-
-
 
 
 
@@ -113,9 +124,9 @@ if(isset($_GET['Id'])) {
         <div class="container-fluid">
             <ul class="navbar-nav">
                 <li class="nav-item "><a class="nav-link" href = "index.html">Home</a></li>
-                <li class="nav-item active"><a class="nav-link" href = "home_student.php">Dash Board</a></li>
+                <li class="nav-item "><a class="nav-link" href = "home_student.php">Dash Board</a></li>
                 <li class="nav-item "><a class="nav-link" href = "UploadPapers.php">Upload Papers</a></li>
-                <li class="nav-item"><a class="nav-link" href = "UploadReviews.php">Upload Reviews</a></li>
+                <li class="nav-item active"><a class="nav-link" href = "UploadReviews.php">Upload Reviews</a></li>
                 <li class="nav-item"><a class="nav-link" href = "ViewProject.php">Project</a></li>
                 <li class="nav-item"><a class="nav-link" href = "index.html">log Out</a></li>
 
@@ -123,7 +134,8 @@ if(isset($_GET['Id'])) {
         </div>
 
     </nav>
-
+<br>
+    <br>
     <main class="col-md-12">
         <div>
 
@@ -132,6 +144,7 @@ if(isset($_GET['Id'])) {
 
 
         <h2>Upload Reviews</h2>
+        <br>
         <div>
             <form action="UploadReviews.php" method="post" enctype="multipart/form-data"><!-- for  uploading a file -->
                 <fieldset>
@@ -158,8 +171,9 @@ if(isset($_GET['Id'])) {
         <div>
             <?php echo htmlentities($msg); ?>
         </div>
-
+<br>
         <h2> Reviews</h2>
+        <br>
         <div class="table-responsive">
             <table class="table table-striped table-hover">
                 <!-- Header for the table. -->
@@ -204,10 +218,6 @@ if(isset($_GET['Id'])) {
                             <a class="btn btn-primary"  href="assets/uploads/<?php echo $UploadedReview; ?>" target="_blank">View</a>
                             <?php               ?>
 
-                            <?php
-                            ?>
-                            <a class="btn btn-small btn-success"  href="ManageStudents.php?Id=<?php echo $Id; ?>">Edit</a>
-                            <?php               ?>
 
                             <?php
                             ?>

@@ -75,17 +75,21 @@ if (isset($_REQUEST['Submit'])) {
     else {
 
 
-        $QueryUpdateteamsallocatedpaper = "UPDATE teams SET TeamName='$TeamName' WHERE allocatedpaper = '$Paper1'";
-        $QueryUpdateteamsallocatedpaper = mysqli_query($db, $QueryUpdateteamsallocatedpaper);
-        $QueryUpdateteamsallocatedpaper = "UPDATE teams SET TeamName='$TeamName' WHERE allocatedpaper = '$Paper2'";
-        $QueryUpdateteamsallocatedpaper = mysqli_query($db, $QueryUpdateteamsallocatedpaper);
-        $QueryUpdateteamsallocatedpaper = "UPDATE teams SET TeamName='$TeamName' WHERE allocatedpaper = '$Paper3'";
-        $QueryUpdateteamsallocatedpaper = mysqli_query($db, $QueryUpdateteamsallocatedpaper);
-        $QueryUpdateteamsallocatedpaper = "UPDATE teams SET TeamName='$TeamName' WHERE allocatedpaper = '$Paper4'";
-        $QueryUpdateteamsallocatedpaper = mysqli_query($db, $QueryUpdateteamsallocatedpaper);
-        $QueryUpdateteamsallocatedpaper = "UPDATE teams SET TeamName='$TeamName' WHERE allocatedpaper = '$Paper5'";
-        $QueryUpdateteamsallocatedpaper = mysqli_query($db, $QueryUpdateteamsallocatedpaper);
-
+        $stmt = mysqli_prepare($db, "INSERT INTO teams (allocatedpaper) VALUES ( ?)");
+        mysqli_stmt_bind_param($stmt, 's', $paper1);
+        $result = mysqli_stmt_execute($stmt);
+        $stmt = mysqli_prepare($db, "INSERT INTO teams (allocatedpaper) VALUES ( ?)");
+        mysqli_stmt_bind_param($stmt, 's', $paper2);
+        $result = mysqli_stmt_execute($stmt);
+        $stmt = mysqli_prepare($db, "INSERT INTO teams (allocatedpaper) VALUES ( ?)");
+        mysqli_stmt_bind_param($stmt, 's', $paper3);
+        $result = mysqli_stmt_execute($stmt);
+        $stmt = mysqli_prepare($db, "INSERT INTO teams (allocatedpaper) VALUES ( ?)");
+        mysqli_stmt_bind_param($stmt, 's', $paper4);
+        $result = mysqli_stmt_execute($stmt);
+        $stmt = mysqli_prepare($db, "INSERT INTO teams (allocatedpaper) VALUES ( ?)");
+        mysqli_stmt_bind_param($stmt, 's', $paper5);
+        $result = mysqli_stmt_execute($stmt);
 
 
 
@@ -143,11 +147,11 @@ if (isset($_REQUEST['Submit'])) {
         <div class="container-fluid">
             <ul class="navbar-nav">
                 <li class="nav-item "><a class="nav-link" href = "index.html">Home</a></li>
-                <li class="nav-item "><a class="nav-link" href = "home_lecturer.php">Dash Board</a></li>
-                <li class="nav-item "><a class="nav-link" href = "projects.php">Projects</a></li>
-                <li class="nav-item"><a class="nav-link" href = "papers.php">Papers</a></li>
+                <li class="nav-item "><a class="nav-link" href = "home_student.php">Dash Board</a></li>
+                <li class="nav-item "><a class="nav-link" href = "UploadPapersT.php">Upload Papers</a></li>
+                <li class="nav-item"><a class="nav-link" href = "UploadReviewsT.php">Upload Reviews</a></li>
+                <li class="nav-item"><a class="nav-link" href = "ViewProjectT.php">Project</a></li>
                 <li class="nav-item active"><a class="nav-link" href = "AllocatePaper.php">Allocate Paper</a></li>
-                <li class="nav-item"><a class="nav-link" href = "reviews.php">Reviews</a></li>
                 <li class="nav-item"><a class="nav-link" href = "index.html">log Out</a></li>
 
             </ul>

@@ -87,12 +87,14 @@ if(isset($_GET['Id'])) {
         </div>
 
     </nav>
-
+<br>
+    <br>
     <main class="col-md-12">
         <div>
             <?php echo htmlentities($msg); ?>
         </div>
         <h2> Papers</h2>
+        <br>
         <div class="table-responsive">
             <table class="table table-striped table-hover">
                 <!-- Header for the table. -->

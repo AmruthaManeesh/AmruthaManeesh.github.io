@@ -115,8 +115,9 @@ if(isset($_GET['Id'])) {
                 <li class="nav-item "><a class="nav-link" href = "index.html">Home</a></li>
                 <li class="nav-item "><a class="nav-link" href = "home_student.php">Dash Board</a></li>
                 <li class="nav-item active"><a class="nav-link" href = "UploadPapersT.php">Upload Papers</a></li>
-                <li class="nav-item"><a class="nav-link" href = "UploadReviews.php">Upload Reviews</a></li>
-                <li class="nav-item"><a class="nav-link" href = "ViewProject.php">Project</a></li>
+                <li class="nav-item"><a class="nav-link" href = "UploadReviewsT.php">Upload Reviews</a></li>
+                <li class="nav-item"><a class="nav-link" href = "ViewProjectT.php">Project</a></li>
+                <li class="nav-item"><a class="nav-link" href = "AllocatePaper.php">Allocate Paper</a></li>
                 <li class="nav-item"><a class="nav-link" href = "index.html">log Out</a></li>
 
             </ul>
@@ -203,10 +204,6 @@ if(isset($_GET['Id'])) {
                             <?php               ?>
 
 
-                            <?php
-                            ?>
-                            <a class="btn btn-small btn-success"  href="UploadPapersT.php?Id=<?php echo $Id; ?>">Edit</a>
-                            <?php               ?>
 
                             <?php
                             ?>

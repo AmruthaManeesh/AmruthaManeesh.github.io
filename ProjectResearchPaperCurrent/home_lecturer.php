@@ -1,6 +1,7 @@
 <?php include_once("connectdb.php"); ?>
 <?php include_once("session.php"); ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -51,11 +52,12 @@
         </div>
 
     </nav>
-
+<br>
+    <br>
     <main class="col-md-12">
 
 <div>
-        <h2>Welcome  <?php echo htmlentities($CurrentUserName) ?></h2>
+        <h2>Welcome  <?php echo htmlentities( $_SESSION['username']); ?></h2>
 <?php
 $msg ='';
 global $db;
@@ -70,7 +72,8 @@ $Name = $DataRows['name'];
 ?>
 </div>
     </main>
-
+<br>
+    <br>
 
     <footer>
         <div id="thirdcontainer" >

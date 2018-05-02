@@ -55,7 +55,8 @@
         </div>
 
     </nav>
-
+<br>
+    <br>
     <main class="col-md-12">
         <div class="table-responsive">
             <table class="table table-striped table-hover">
@@ -63,7 +64,7 @@
                 <tr>
                     <th>SN.</th>
                     <th>Team Members</th>
-                    <th>Team Leader</th>
+                    <th>Role</th>
                 </tr>
 
                 <?php

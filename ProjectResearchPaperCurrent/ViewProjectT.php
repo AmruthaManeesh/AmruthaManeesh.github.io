@@ -1,4 +1,9 @@
-<?php include_once("connectdb.php"); ?>
+<?php include_once("session.php"); ?>
+
+<?php include_once("connectdb.php");
+
+?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -25,6 +30,8 @@
 
 <body>
 
+
+
 <div id="page">
 
     <header class="col-md-12"  >
@@ -39,10 +46,10 @@
         <div class="container-fluid">
             <ul class="navbar-nav">
                 <li class="nav-item "><a class="nav-link" href = "index.html">Home</a></li>
-                <li class="nav-item "><a class="nav-link" href = "home_teamleader.php">Dash Board</a></li>
+                <li class="nav-item active"><a class="nav-link" href = "home_student.php">Dash Board</a></li>
                 <li class="nav-item "><a class="nav-link" href = "UploadPapersT.php">Upload Papers</a></li>
                 <li class="nav-item"><a class="nav-link" href = "UploadReviewsT.php">Upload Reviews</a></li>
-                <li class="nav-item active"><a class="nav-link" href = "ViewProjectT.php">Project</a></li>
+                <li class="nav-item"><a class="nav-link" href = "ViewProjectT.php">Project</a></li>
                 <li class="nav-item"><a class="nav-link" href = "AllocatePaper.php">Allocate Paper</a></li>
                 <li class="nav-item"><a class="nav-link" href = "index.html">log Out</a></li>
             </ul>
@@ -51,25 +58,71 @@
     </nav>
 
     <main class="col-md-12">
-
-
-
-
-
-        <h2> Team</h2>
         <div class="table-responsive">
             <table class="table table-striped table-hover">
                 <!-- Header for the table. -->
                 <tr>
                     <th>SN.</th>
-                    <th>Project</th>
                     <th>Team Members</th>
                     <th>Team Leader</th>
-                    <th>Course</th>
                 </tr>
 
+                <?php
+                global $db;
+
+                $currentuser = $_SESSION['username'];
+
+                $getName = "SELECT * FROM login WHERE username='$currentuser'";
+                $Result = mysqli_query($db, $getName);
+                $DataRows = mysqli_fetch_assoc($Result);
+                $Name = $DataRows['name'];
+
+                $getTeamName = "SELECT * FROM teams WHERE teammembers='$Name'";
+                $ResultTeamName = mysqli_query($db, $getTeamName);
+                $TeamDataRow = mysqli_fetch_assoc($ResultTeamName);
+                $TeamName = $TeamDataRow['teamname'];
+
+                $ViewTeamMembers = "SELECT * FROM teams WHERE teamname='$TeamName'";
+                $ResultTeamMembers = mysqli_query($db,   $ViewTeamMembers );
+
+
+
+                $SrNo = 0;
+                while ($TeamMemberRows=mysqli_fetch_assoc( $ResultTeamMembers)) {
+
+                    $Team_Name = $TeamMemberRows["teamname"];
+                    $GLOBALS['Team_Name'] = $Team_Name;
+
+                    //We will use the Team_Name to get details of the project from the project table.
+                    $viewProjects = "SELECT * FROM projects WHERE TeamName='$Team_Name'";
+                    $viewProjectsResult = mysqli_query($db, $viewProjects);
+                    $DataRows =mysqli_fetch_assoc($viewProjectsResult);
+                    $title = $DataRows["title"];
+                    $GLOBALS['title'] = $title;
+                    $course = $DataRows["course"];
+                    $GLOBALS['course'] = $course;
+
+                    $TeamMember = $TeamMemberRows["teammembers"];
+                    $Teamleader = $TeamMemberRows["teamleader"];
+                    //This will help maintain correct numbering of the SN. field
+                    $SrNo++;
+                    ?>
+
+                    <!-- New Row -->
+                    <tr>
+                        <td><?php echo $SrNo; ?> </td>
+                        <td><?php echo $TeamMember; ?> </td>
+                        <td><?php echo $Teamleader; ?> </td>
+                    </tr>
+
+                <?php } ?>
+
+                <h3>Team Name: <?php echo htmlentities($Team_Name) ?> </h3>
+                <h3>Project Title: <?php echo htmlentities($title) ?> </h3>
+                <h3>Course: <?php echo htmlentities($course) ?> </h3>
 
             </table>
+
 
         </div>
     </main>
@@ -87,3 +140,5 @@
     </footer>
 </div>
 </body>
+
+

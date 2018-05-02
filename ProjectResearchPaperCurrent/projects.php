@@ -115,7 +115,8 @@ if(isset($_GET['Id'])) {
         </div>
 
     </nav>
-
+<br>
+    <br>
     <main class="col-md-12">
       <div>
 
@@ -124,6 +125,7 @@ if(isset($_GET['Id'])) {
 
 
         <h2>New Projects</h2>
+        <br>
         <div>
             <form action="projects.php" method="post" enctype="multipart/form-data">
                 <fieldset>
@@ -147,6 +149,7 @@ if(isset($_GET['Id'])) {
         </div>
 
         <h2>Projects</h2>
+        <br>
         <div class="table-responsive">
             <table class="table table-striped table-hover">
                 <!-- Header for the table. -->
@@ -154,7 +157,8 @@ if(isset($_GET['Id'])) {
                     <th>SN.</th>
                     <th>Project title</th>
                     <th>Course</th>
-                    <th>Action</th>
+                    <th>Actions</th>
+
                 </tr>
 
                 <!--Getting all the records from the database to form rows on the table. -->
@@ -163,7 +167,7 @@ if(isset($_GET['Id'])) {
                 $ViewProjects = "SELECT * FROM projects";
                 $result = mysqli_query($db,  $ViewProjects);
 
-                //$SrNo = 0;
+                $SrNo = 0;
                 while ($rows=mysqli_fetch_assoc($result)){
                     $Id = $rows["id"];
                     $ProjectTitle = $rows["title"];
@@ -171,15 +175,21 @@ if(isset($_GET['Id'])) {
                     $Course = $rows["course"];
 
                     //This will help maintain correct numbering of the SN. field
-                    //$SrNo++;
+                    $SrNo++;
                     ?>
 
                     <!-- New Row -->
                     <tr>
-                        <td><?php echo $Id; ?> </td>
+                        <td><?php echo $SrNo; ?> </td>
                         <td><?php echo $ProjectTitle; ?> </td>
                         <td><?php echo $Course ?> </td>
                         <td>
+
+                            <?php
+                            ?>
+                            <a class="btn btn-success"  href="Editproject.php?Id=<?php echo $Id; ?>">Edit</a>
+                            <?php               ?>
+
                             <?php
                              ?>
                             <a class="btn btn-danger"  href="projects.php?Id=<?php echo $Id; ?>">Delete</a>

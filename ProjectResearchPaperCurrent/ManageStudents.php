@@ -13,7 +13,6 @@ if (isset($_REQUEST['Submit'])) {
 //NB, that if no conn is open, mysqli_real_escape_string() will return an empty string!.Triggering Validation 1
     $ProjectName = mysqli_real_escape_string($db, $ProjectName);
 
-
 // removes backslashes
     $TeamName = stripslashes($_REQUEST['TeamName']);
 //NB, that if no conn is open, mysqli_real_escape_string() will return an empty string!.Triggering Validation 1
@@ -74,7 +73,7 @@ if (isset($_REQUEST['Submit'])) {
     $AdminName = $_SESSION['username'];
 
 
-    if ($TeamName="") {
+    if ($TeamName=="") {
         $msg = 'The Team Name cannot be empty';
     }
     else {
@@ -179,11 +178,13 @@ if(isset($_GET['Id'])) {
         </div>
 
     </nav>
-
+<br>
+    <br>
     <main class="col-md-12">
 
 
         <h2>Create Team</h2>
+        <br>
         <div>
             <form action="ManageStudents.php" method="post" enctype="multipart/form-data">
                 <fieldset>
@@ -207,9 +208,8 @@ if(isset($_GET['Id'])) {
                             <option><?php echo htmlentities($ProjectTitle); ?></option>
                             <?php   }  ?>
                         </select>
-
-
                     </div>
+
                     <div class="form-group">
                         <label for="teamname"><span class="FieldInfo">Team Name:</span></label>
                         <input class="form-control" type="text" name="TeamName" id="teamname" placeholder="Team Name">
@@ -337,9 +337,12 @@ if(isset($_GET['Id'])) {
                 <br>
             </form>
         </div>
-
-
+        <div>
+            <?php echo htmlentities($msg); ?>
+        </div>
+<br>
         <h2> Teams</h2>
+        <br>
         <div class="table-responsive">
             <table class="table table-striped table-hover">
                 <!-- Header for the table. -->
@@ -350,6 +353,7 @@ if(isset($_GET['Id'])) {
                     <th>Team Members</th>
                     <th>Team Leader</th>
                     <th>Course</th>
+                    <th>Action</th>
                 </tr>
 
                 <!--Getting all the records from the database to form rows on the table. -->
@@ -361,9 +365,11 @@ if(isset($_GET['Id'])) {
 
                 $SrNo = 0;
                 while ($rows=mysqli_fetch_assoc($result)){
+                    $Id = $rows["Id"];
                     $Team_Name= $rows["teamname"];
                     $TeamMember = $rows["teammembers"];
                     $Teamleader = $rows["teamleader"];
+                    $AllocatedPaper=$rows["allocatedpaper"];
 
 
                     $viewProjects = "SELECT * FROM projects WHERE TeamName='$Team_Name'";
@@ -392,12 +398,10 @@ if(isset($_GET['Id'])) {
                         <td><?php echo $TeamMember; ?> </td>
                         <td><?php echo $Teamleader; ?> </td>
                         <td><?php echo $course; ?> </td>
+
                         <td>
 
-                            <?php
-                            ?>
-                            <a class="btn btn-small btn-success"  href="ManageStudents.php?Id=<?php echo $Id; ?>">Edit</a>
-                            <?php               ?>
+
 
                             <?php
                             ?>

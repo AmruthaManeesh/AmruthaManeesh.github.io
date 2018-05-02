@@ -1,4 +1,4 @@
-<?php include_once("session.php"); ?>
+<?php include_once("connectdb.php"); ?>
 <?php include_once("session.php"); ?>
 
 <!DOCTYPE html>
@@ -50,13 +50,46 @@
         </div>
 
     </nav>
-
+<br>
+    <br>
     <main class="col-md-12">
+        <div>
+            <h2>Welcome  <?php echo htmlentities( $_SESSION['username']); ?></h2>
+            <br>
+            <br>
+
+            <?php
+            $msg ='';
+            global $db;
+
+            $CurrentUserName = $_SESSION['username'];
+            $getName = "SELECT * FROM login WHERE username='$CurrentUserName'";
+            $Result = mysqli_query($db, $getName);
+            $DataRows = mysqli_fetch_assoc($Result);
+            $Name = $DataRows['name'];
+
+            $QueryForComments = "SELECT * FROM review WHERE reviewedby='$CurrentUserName'";
+            $ResultQueryForComments = mysqli_query($db, $QueryForComments);
 
 
-        <h2>Welcome </h2>
+            while($Rows = mysqli_fetch_assoc($ResultQueryForComments )){
+                $PaperTile = $Rows['papertitle'];
+                $Course = $Rows['course'];
+                $Comment = $Rows['comments'];
 
+                ?>
 
+                <div class="form-group">
+                    <?php echo htmlentities("Paper Title: ".$PaperTile.","); ?>
+                    <?php echo htmlentities("Course Title: ".$Course); ?><br>
+                    <label for="comments"><span class="FieldInfo">Comment by Lecturer:</span></label>
+                    <textarea class="form-control" name="Comment" id="comment"><?php echo htmlentities($Comment);  ?>
+
+                    </textarea><br>
+                </div>
+
+            <?php } ?>
+        </div>
     </main>
 
 

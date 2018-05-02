@@ -7,9 +7,6 @@ if(isset($_REQUEST['Id'])) {
     $ReviewIDFromURLToUpdateComment = $_GET['Id'];
 
 
-    echo "Test";
-    echo "$ReviewIDFromURLToUpdateComment";
-    echo $ReviewIDFromURLToUpdateComment;
 }
 
 if(isset($_REQUEST['Submit'])) {
@@ -21,14 +18,14 @@ if(isset($_REQUEST['Submit'])) {
     //NB, that if no conn is open, mysqli_real_escape_string() will return an empty string!.Triggering Validation 1
     $ReviewComment = mysqli_real_escape_string($db,  $ReviewComment);
 
-    $AddReviewComment = "UPDATE reviews SET comment='$ReviewComment' WHERE id=$ReviewIDFromURLToUpdateComment";
+    $AddReviewComment = "UPDATE review SET comments='$ReviewComment' WHERE id='$ReviewIDFromURLToUpdateComment'";
     $ResultAddReviewComment = mysqli_query($db, $AddReviewComment);
 
     if($ResultAddReviewComment){
         $msg= 'Successful';
     }
     else{
-        echo "Could not successfully run query  from DB: " . mysqli_error();
+        echo "Could not successfully run query from DB: " .mysqli_error($db);
     }
 }
 
@@ -92,7 +89,7 @@ if(isset($_REQUEST['Submit'])) {
             <?php echo htmlentities($msg) ?>
         </div>
 
-        <form action="ReviewComments.php" method="post" enctype="multipart/form-data">
+        <form action="ReviewComments.php?Id=<?php echo $_GET['Id']; ?>  " method="post" enctype="multipart/form-data">
             <fieldset>
                 <div class="form-group">
                     <label for="reviewcomment"><span class="FieldInfo">Comment:</span></label>
